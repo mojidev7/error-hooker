@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const logsDirection = path.join(__dirname, '../', '../', '../', '/logs');
+const logsDirection = path.join(__dirname, '../', '../', '../', '../', '/logs');
 if (!fs.existsSync(logsDirection)){
     fs.mkdirSync(logsDirection);
 }

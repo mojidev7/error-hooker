@@ -1,6 +1,6 @@
 {
   "name": "error-hooker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ExpressJs module for hooks error and send those error to discord, slack or other custom webhooks and save error logs in appropriate files",
   "main": "index.js",
   "scripts": {
