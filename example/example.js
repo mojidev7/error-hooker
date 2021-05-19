@@ -8,7 +8,7 @@ errorHooker.config.setApp(app);
 
 
 app.get('/', (req, res, next) => {
-   next('testtitle,testmessage,testErr');
+   next('Title_Of_Error, Message_Of_Error, Body_Of_Error');
 });
 
 errorHooker.start();
