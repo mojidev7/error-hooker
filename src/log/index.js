@@ -15,7 +15,7 @@ DATE: ${new Date().toJSON()}
 ===========================================
 `;
 
-	const logForFileAndConsole = `${new Date().toJSON()} - ${status} - ${code.toString()} - ${error.toString()}`;
+	const logForFileAndConsole = `${new Date().toJSON()} - ${status} - ${code.toString()} - ${error.toString()}\n`;
 	if (config.file.active) {
 		logFile(logForFileAndConsole, config.file.path);
 	}
@@ -23,7 +23,7 @@ DATE: ${new Date().toJSON()}
 	if (config.discord.active) {
 		discordLog(errStrForDiscord, config.discord.hookUrl);
 	}
-
+	
 	if (config.console.active) {
 		config.console.logger.error(logForFileAndConsole);
 	}

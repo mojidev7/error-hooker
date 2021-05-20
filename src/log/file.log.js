@@ -6,8 +6,8 @@ if (!fs.existsSync(logsDirection)) {
 	fs.mkdirSync(logsDirection);
 }
 
-const log = (errStr, path) => {
-	fs.appendFile(path.join(logsDirection, path), errStr, () => {});
+const log = (errStr, p) => {
+	fs.appendFile(path.join(logsDirection, p), errStr, () => {});
 };
 
 module.exports = log;

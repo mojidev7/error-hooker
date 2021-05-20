@@ -1,6 +1,12 @@
 const errorHooker = require('../index');
 const app = require('express')();
 
+
+app.get('/', (req, res, next) => {
+	// app logic
+	next([400, 'failed', 'id must be integer!']);
+});
+
 errorHooker.start({
 	discord: {
 		active: true,
@@ -21,9 +27,6 @@ errorHooker.start({
 	},
 });
 
-app.get('/', (req, res, next) => {
-	// app logic
-	next([400, 'failed', 'id must be integer!']);
-});
+
 
 app.listen(3004);
