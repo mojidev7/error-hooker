@@ -3,7 +3,7 @@
 
 ## Before Everything:
 Install it:
-```
+```bash
 npm i error-hooker
 ```
 ### Important note: under developement!! please use latest version version!
@@ -14,45 +14,45 @@ and:
 ## How To Config
 1- set appropriate configuration, for example:
 
-````
+```js
 const errorHooker = require('error-hooker');
 
-// set discord webhook url
-errorHooker.config.setDiscordHookUrl('URL OF DISCORD WEBHOOK');
-
-// for logging into discord channel.
-errorHooker.config.setLogFile(); 
-
-// for logging into logs folder in the root of project's directory.
-errorHooker.config.setDiscordLogHook(); 
-
-// for logging in the console.
-errorHooker.config.setConsole();
-
-// for send response to the client.
-errorHooker.config.setSendResponse();
-
-// pass the express application.
-errorHooker.config.setApp(app); 
-
-````
+errorHooker.start({
+	discord: {
+		active: true,
+		hookUrl:'URL OF DISCORD WEBHOOK',
+	},
+	file: {
+		active: true,
+		path: 'errors.log',
+	},
+	express: {
+		app: app,
+		sendResponse: true,
+	},
+	console: {
+		active: true,
+		logger: console,
+	},
+});
+```
 
 2- use below code in the end of all express routers:
 
-```
+```js
 errorHooker.start();
 ```
 
 ## How to Use
 in express controllers if you face some errors just try to use next() callback with this syntax:
 
-```
+```js
 next([HTTP_CODE, 'ERROR_STATUS', 'BODY_OF_ERROR']);
 ```
 
-for example: 
+for example:
 
-```
+```js
 app.get('/', (req, res, next) => {
    // app logic
    next([400, 'failed', 'id must be integer!']);
@@ -61,7 +61,7 @@ app.get('/', (req, res, next) => {
 
 then output message is:
 
-```
+```log
 ===========================================
 STATUS: failed
 ----
@@ -75,26 +75,34 @@ DATE: 2021-05-20T08:06:45.229Z
 
 
 ## Full Example:
-
-```
+```js
 const errorHooker = require('error-hooker');
 const app = require('express')();
 
-// doesn't matter use my discord webhook :) have fun :))
-errorHooker.config.setDiscordHookUrl('https://discord.com/api/webhooks/844646357372239882/BOmvPxqieTqr8H5G-FuMT2kLL639UbddTW5YmIXx5MJ0_fLj2yJGf1PJustZQhzGTK4L');
-
-errorHooker.config.setLogFile();
-errorHooker.config.setDiscordLogHook();
-errorHooker.config.setSendResponse();
-errorHooker.config.setConsole();
-errorHooker.config.setApp(app);
-
-app.get('/', (req, res, next) => {
-   // app logic
-   next([400, 'failed', 'id must be integer!']);
+errorHooker.start({
+	discord: {
+		active: true,
+		hookUrl:
+			'https://discord.com/api/webhooks/844646357372239882/BOmvPxqieTqr8H5G-FuMT2kLL639UbddTW5YmIXx5MJ0_fLj2yJGf1PJustZQhzGTK4L',
+	},
+	file: {
+		active: true,
+		path: 'errors.log',
+	},
+	express: {
+		app: app,
+		sendResponse: true,
+	},
+	console: {
+		active: true,
+		logger: console,
+	},
 });
 
-errorHooker.start();
+app.get('/', (req, res, next) => {
+	// app logic
+	next([400, 'failed', 'id must be integer!']);
+});
 
 app.listen(3004);
 ```

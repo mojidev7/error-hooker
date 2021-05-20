@@ -1,28 +1,35 @@
-const config = require('./src/config');
+const { config, applyConfigs } = require('./src/config');
 const log = require('./src/log');
 
-const start = () => {
-    console.log('ErrorHooker started successfully!');
-    config.getApp().use((err, req, res, next) => {
+/**
+ * Start error hooker
+ * @param {config} options
+ */
+const start = options => {
+	applyConfigs(options);
+	console.log('ErrorHooker started successfully!');
 
-        if (typeof err[0] !== 'number'){
-            err[0] = 500;
-        }
+	config.express.app.use((err, req, res, next) => {
+		let [httpCode, status, error] = err;
+		if (typeof httpCode !== 'number') {
+			httpCode = 500;
+		}
 
-        if (err) log(err[0], err[1], err[2]);
-        if (config.getSendResponse()) {
-            return res.status(err[0]).json({
-                status: err[1],
-                error: err[2],
-            });
-        }
-        next();
-    });
-}
+		if (err) {
+			log(httpCode, status, error);
+		}
+		if (config.express.sendResponse) {
+			return res.status(httpCode).json({
+				status: status,
+				error: error,
+			});
+		}
+		next();
+	});
+};
 
 const errorHooker = {
-    config,
-    start,
-}
+	start,
+};
 
 module.exports = errorHooker;

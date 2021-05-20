@@ -1,10 +1,9 @@
-const { getLogFile, getDiscordLogHook, getDiscordHookUrl, getConsole } = require('../config');
+const { config } = require('../config');
 const logFile = require('./file.log');
-const logHook = require('./discord.hook.log');
+const discordLog = require('./discord.hook.log');
 
 const log = (code, status, error) => {
-
-    const errStr = `
+	const errStrForDiscord = `
 ===========================================
 STATUS: ${status}
 ----
@@ -16,17 +15,18 @@ DATE: ${new Date().toJSON()}
 ===========================================
 `;
 
-    if (getLogFile()) {
-        logFile(errStr);
-    } 
+	const logForFileAndConsole = `${new Date().toJSON()} - ${status} - ${code.toString()} - ${error.toString()}`;
+	if (config.file.active) {
+		logFile(logForFileAndConsole, config.file.path);
+	}
 
-    if (getDiscordLogHook()) {
-        logHook(errStr, getDiscordHookUrl());
-    }
+	if (config.discord.active) {
+		discordLog(errStrForDiscord, config.discord.hookUrl);
+	}
 
-    if (getConsole()) {
-        console.log(errStr);
-    }
-}
+	if (config.console.active) {
+		config.console.logger.error(logForFileAndConsole);
+	}
+};
 
 module.exports = log;
