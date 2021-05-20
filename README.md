@@ -12,7 +12,7 @@ and:
 [How to get Discord webhook?](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
 
 ## How To Config
-1- set appropriate configuration, for example:
+ set appropriate configuration, for example:
 
 ```js
 const errorHooker = require('error-hooker');
@@ -35,12 +35,6 @@ errorHooker.start({
 		logger: console,
 	},
 });
-```
-
-2- use below code in the end of all express routers:
-
-```js
-errorHooker.start();
 ```
 
 ## How to Use
@@ -79,6 +73,11 @@ DATE: 2021-05-20T08:06:45.229Z
 const errorHooker = require('error-hooker');
 const app = require('express')();
 
+app.get('/', (req, res, next) => {
+	// app logic
+	next([400, 'failed', 'id must be integer!']);
+});
+
 errorHooker.start({
 	discord: {
 		active: true,
@@ -97,11 +96,6 @@ errorHooker.start({
 		active: true,
 		logger: console,
 	},
-});
-
-app.get('/', (req, res, next) => {
-	// app logic
-	next([400, 'failed', 'id must be integer!']);
 });
 
 app.listen(3004);
