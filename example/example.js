@@ -11,7 +11,7 @@ errorHooker.config.setApp(app);
 
 app.get('/', (req, res, next) => {
    // app logic
-   next([400, 'ERROR_STATUS', 'BODY_OF_ERROR']);
+   next([400, 'failed', 'id must be integer!']);
 });
 
 errorHooker.start();
