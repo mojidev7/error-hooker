@@ -1,27 +1,31 @@
-const { getLogFile, getDiscordLogHook, getDiscordHookUrl } = require('../config');
+const { getLogFile, getDiscordLogHook, getDiscordHookUrl, getConsole } = require('../config');
 const logFile = require('./file.log');
 const logHook = require('./discord.hook.log');
 
-const log = (title, message, err) => {
+const log = (code, status, error) => {
 
     const errStr = `
 ===========================================
-title: ${title}
+STATUS: ${status}
 ----
-message: ${message}
+HTTP_CODE: ${code.toString()}
 ----
-error: ${err.toString()}
+ERROR: ${error.toString()}
 ----
-date: ${new Date().toJSON()}
+DATE: ${new Date().toJSON()}
 ===========================================
 `;
 
-    if (getLogFile) {
+    if (getLogFile()) {
         logFile(errStr);
     } 
 
-    if (getDiscordLogHook) {
+    if (getDiscordLogHook()) {
         logHook(errStr, getDiscordHookUrl());
+    }
+
+    if (getConsole()) {
+        console.log(errStr);
     }
 }
 

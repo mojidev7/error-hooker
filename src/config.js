@@ -1,17 +1,15 @@
 const config = {};
 
-const setLogFile = (status) => {
-    if (typeof status === 'boolean')
-    config.logFile = status;
+const setLogFile = () => {
+    config.logFile = true;
 }
 
 const getLogFile = () => {
     return config.logFile;
 }
 
-const setDiscordLogHook = (status) => {
-    if (typeof status === 'boolean')
-    config.discordLogHook = status;
+const setDiscordLogHook = () => {
+    config.discordLogHook = true;
 }
 
 const getDiscordLogHook = () => {
@@ -34,6 +32,21 @@ const getApp = () => {
     return config.app;
 }
 
+const setSendResponse = () => {
+    config.sendResponse = true;
+}
+
+const getSendResponse = () => {
+    return config.sendResponse;
+}
+
+const setConsole = () => {
+    config.console = true;
+}
+
+const getConsole = () => {
+    return config.console;
+}
 
 module.exports = { 
     setLogFile,
@@ -44,4 +57,8 @@ module.exports = {
     getDiscordHookUrl,
     setApp,
     getApp,
+    setSendResponse,
+    getSendResponse,
+    setConsole,
+    getConsole,
 };

@@ -4,8 +4,18 @@ const log = require('./src/log');
 const start = () => {
     console.log('ErrorHooker started successfully!');
     config.getApp().use((err, req, res, next) => {
-        const errArray = err.split(',');
-        if (err) log(errArray[0], errArray[1], errArray[2]);
+
+        if (typeof err[0] !== 'number'){
+            err[0] = 500;
+        }
+
+        if (err) log(err[0], err[1], err[2]);
+        if (config.getSendResponse()) {
+            return res.status(err[0]).json({
+                status: err[1],
+                error: err[2],
+            });
+        }
         next();
     });
 }

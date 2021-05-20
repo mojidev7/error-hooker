@@ -1,11 +1,13 @@
 # Error Hooker
- Hooks errors and save them in logs foolder in the root of NodeJs project or send it to webhooks.
+ Hooks errors and save them in logs folder in the root of NodeJs project or send it to webhooks.
 
 ## Before Everything:
 Install it:
 ```
 npm i error-hooker
 ```
+### Important note: under developement!! please use last version!
+
 and:
 [How to get Discord webhook?](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
 
