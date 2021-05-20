@@ -6,7 +6,7 @@ const log = (errStr, url) => {
 			content: errStr,
 		});
 	} catch (err) {
-		console.error(err);
+		console.error('Error on sending discord log', err);
 	}
 };
 
