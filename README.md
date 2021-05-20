@@ -36,6 +36,7 @@ errorHooker.start({
 	},
 });
 ```
+important note: please place these in the end of all routers.
 
 ## How to Use
 in express controllers if you face some errors just try to use next() callback with this syntax:
