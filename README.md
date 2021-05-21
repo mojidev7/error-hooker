@@ -96,7 +96,7 @@ errorHooker.start({
 	slack: {
 		active: true,
 		hookUrl:
-			'https://hooks.slack.com/services/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',
+			'https://hooks.slack.com/services/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',
 	},
 	file: {
 		active: true,
