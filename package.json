@@ -14,7 +14,9 @@
   "keywords": [
     "error-hooker",
     "discord",
-    "logger"
+    "logger",
+    "slack",
+    "error saver"
   ],
   "author": "Mojtaba HosseinPour",
   "license": "ISC",
