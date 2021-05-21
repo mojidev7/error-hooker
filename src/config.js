@@ -11,6 +11,10 @@ const config = {
 		active: false,
 		hookUrl: '',
 	},
+	slack: {
+		active: false,
+		hookUrl: '',
+	},
 	console: {
 		active: false,
 		logger: console,
@@ -38,6 +42,12 @@ function applyConfigs(options) {
 	config.discord.hookUrl = options?.discord?.hookUrl ?? config.discord.hookUrl;
 	if (config.discord.active && config.discord.hookUrl == '') {
 		throw Error('Proper Discord hook url is required');
+	}
+
+	config.slack.active = options?.slack?.active ?? config.slack.active;
+	config.slack.hookUrl = options?.slack?.hookUrl ?? config.slack.hookUrl;
+	if (config.slack.active && config.slack.hookUrl == '') {
+		throw Error('Proper Slack hook url is required');
 	}
 
 	config.console.active = options?.console?.active ?? config.console.active;

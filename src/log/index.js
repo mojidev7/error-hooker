@@ -1,9 +1,10 @@
 const { config } = require('../config');
 const logFile = require('./file.log');
 const discordLog = require('./discord.hook.log');
+const slackLog = require('./slack.hook.log');
 
 const log = (code, status, error) => {
-	const errStrForDiscord = `
+	const errStr = `
 ===========================================
 STATUS: ${status}
 ----
@@ -21,7 +22,11 @@ DATE: ${new Date().toJSON()}
 	}
 
 	if (config.discord.active) {
-		discordLog(errStrForDiscord, config.discord.hookUrl);
+		discordLog(errStr, config.discord.hookUrl);
+	}
+
+	if (config.slack.active) {
+		slackLog(errStr, config.slack.hookUrl);
 	}
 	
 	if (config.console.active) {
